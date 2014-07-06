@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content = "height = device-height, width = 420, user-scalable = no" /> 
+	<title>CamBot</title>
+	<script type="text/javascript" src="/webiopi.js"></script>
+
+	<script type="text/javascript">
+        webiopi().ready(function() {
+
+
+                button = webiopi().createButton("bt_up", "/\\", go_forward, stop);
+                $("#up").append(button);
+
+                button = webiopi().createButton("bt_left", "<", turn_left, stop);
+                $("#middle").append(button);
+
+                button = webiopi().createButton("bt_stop", "X", stop);
+                $("#middle").append(button);
+
+                button = webiopi().createButton("bt_right", ">", turn_right, stop);
+                $("#middle").append(button);
+
+                button = webiopi().createButton("bt_down", "\\/", go_backward, stop);
+                $("#down").append(button);
+
+
+                button = webiopi().createButton("macro", "Spotter", get_done);
+                $("#up2").append(button);
+                });
+
+
+                setInterval ( "callMacro_get_text()", 10000);{
+                }
+
+                function callMacro_get_text() {
+                webiopi().callMacro("get_text", [], python_callback);
+                }
+
+                var python_callback = function(macroName, args, response) {
+                response = response.split("\n");
+                document.getElementById("text_output").value = "";
+                for(var i=0; i<response.length; i++) {
+                document.getElementById("text_output").value += (response[i] + '\n');
+                        }
+                }
+
+
+                function get_done() {
+                webiopi().callMacro("get_done");
+                }
+
+
+                function go_forward() {
+                webiopi().callMacro("go_forward");
+                }
+
+                function go_backward() {
+                webiopi().callMacro("go_backward");
+                }
+
+                function turn_right() {
+                webiopi().callMacro("turn_right");
+                }
+
+                function turn_left() {
+                webiopi().callMacro("turn_left");
+                }
+
+                function stop() {
+                webiopi().callMacro("stop");
+                }
+
+
+		
+	</script>
+	<style type="text/css">
+		button {
+			margin: 5px 5px 5px 5px;
+			width: 50px;
+			height: 50px;
+			font-size: 24pt;
+			font-weight: bold;
+			color: black;
+		}
+
+	#macro{
+                        background-color: Yellow;
+			margin: 5px 5px 5px 5px;
+			width: 150px;
+			height: 50px;	
+			font-size: 24pt;
+			font-weight: bold;
+			color: black;
+                        }   
+
+	</style> </head> <body>
+
+
+	<div id="content" align="center">
+
+<textarea id="text_output" style="width:400px; height:100px;"></textarea>
+                 <div id="up2"></div>
+	
+	<img width="320" height="240" src="http://192.168.0.8:8081"><br/>
+                <div id="up2"></div>
+		<div id="up"></div>
+		<div id="middle"></div>
+		<div id="down"></div>
+	</div>
+</body>
+</html>

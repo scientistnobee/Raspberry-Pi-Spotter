@@ -1,0 +1,6 @@
+miniskirt 10.0713 %
+crayfish 34.307 %
+brassiere 15.663 %
+harp 1.4216 %
+sandal 1.7052 %
+holster 2.4082 %
